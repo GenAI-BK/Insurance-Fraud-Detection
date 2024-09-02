@@ -1,6 +1,6 @@
-from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from langchain_community.document_loaders import WebBaseLoader
+# from langchain_google_genai import ChatGoogleGenerativeAI
+# from langchain_google_genai import GoogleGenerativeAIEmbeddings
+# from langchain_community.document_loaders import WebBaseLoader
 import google.generativeai as genai
 import os
 import PyPDF2
@@ -17,8 +17,8 @@ api_key = st.secrets["GOOGLE_API_KEY"]
 conn = sqlite3.connect('claim.db')
 cursor = conn.cursor()
 
-
-llm=ChatGoogleGenerativeAI(model="gemini-1.5-pro")
+genai.configure(api_key=api_key)
+llm = genai.GenerativeModel("gemini-1.5-pro")
 
 policyholder_docs = {
     "John Doe": "C:/Users/jugal.gurnani/Downloads/insurance_claim/Policyholder_Document_John.pdf",
@@ -147,17 +147,8 @@ claim_form = st.file_uploader("Upload Claim Form", type="PDF")
 medical_bills=st.file_uploader("Upload Bills in a combined PDF", type="PDF")
 
 
-
-if st.button('Submit'):
-    bills=str(extract_text_and_images(medical_bills))
-    if claim_form and medical_bills is not None and policy_terms_text:
-        claim_form_text = convert_pdf_to_text(claim_form)
-        # bills= convert_pdf_to_text(medical_bills)
-
-        # claim_form_text = convert_pdf_to_text(st.session_state.pdf1)
-        # policy_terms_text = convert_pdf_to_text(st.session_state.pdf2)
-
-        prompt=f'''You are an employee of claims department of a health insurance company.\
+def gen_res(policy_terms_text, claim_form_text, final, bills):
+    response=llm.generate_content([f'''You are an employee of claims department of a health insurance company.\
         The data provided to you is the data of a policyholder along with claim form and policyholder\
         terms and conditions. Firstly, check if all the necessary data is filled in the claim form,\
         which includes, Policy number, Policyholder name, Insured Members details, Date, Patient's name,\
@@ -177,10 +168,20 @@ if st.button('Submit'):
         Claim Form: {claim_form_text}
         Data:{final}
         Bills: {bills}
-        '''
+        ''']
+        )
+    return response.text
 
-        response=llm.invoke(prompt)
-        answer= response.content
-        st.write(answer)
+
+if st.button('Submit'):
+    bills=str(extract_text_and_images(medical_bills))
+    if claim_form and medical_bills is not None and policy_terms_text:
+        claim_form_text = convert_pdf_to_text(claim_form)
+        ans=gen_res(policy_terms_text, claim_form_text, final, bills)
+        # bills= convert_pdf_to_text(medical_bills)
+
+        # claim_form_text = convert_pdf_to_text(st.session_state.pdf1)
+        # policy_terms_text = convert_pdf_to_text(st.session_state.pdf2)
+
     else:
         st.write("Please upload all files to proceed.")
