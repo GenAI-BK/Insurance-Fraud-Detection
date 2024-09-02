@@ -1,8 +1,4 @@
-# from langchain_google_genai import ChatGoogleGenerativeAI
-# from langchain_google_genai import GoogleGenerativeAIEmbeddings
-# from langchain_community.document_loaders import WebBaseLoader
 import google.generativeai as genai
-import os
 import PyPDF2
 from PIL import Image
 import streamlit as st
@@ -21,12 +17,12 @@ genai.configure(api_key=api_key)
 llm = genai.GenerativeModel("gemini-1.5-pro")
 
 policyholder_docs = {
-    "John Doe": "Policyholder_Document_John.pdf",
-    "Emily Smith": "Policyholder_Document_Emily.pdf",
-    "Micheal Townley": "Policyholder_Document_Micheal.pdf",
-    "Franklin Johnson": "Policyholder_Document_Franklin.pdf",
-    "Francis DeMaria": "Policyholder_Document_Francis.pdf",
-    "Trevor Andre": "Policyholder_Document_Trevor.pdf"
+    "John Doe": "C:/Users/jugal.gurnani/Downloads/insurance_claim/Policyholder_Document_John.pdf",
+    "Emily Smith": "C:/Users/jugal.gurnani/Downloads/insurance_claim/Policyholder_Document_Emily.pdf",
+    "Micheal Townley": "C:/Users/jugal.gurnani/Downloads/insurance_claim/Policyholder_Document_Micheal.pdf",
+    "Franklin Johnson": "C:/Users/jugal.gurnani/Downloads/insurance_claim/Policyholder_Document_Franklin.pdf",
+    "Francis DeMaria": "C:/Users/jugal.gurnani/Downloads/insurance_claim/Policyholder_Document_Francis.pdf",
+    "Trevor Andre": "C:/Users/jugal.gurnani/Downloads/insurance_claim/Policyholder_Document_Trevor.pdf"
     # Add more mappings as needed
 }
 
@@ -48,57 +44,11 @@ def convert_pdf_to_text(pdf):
         text += page_obj.extract_text()
     return text
 
-def excel_to_text(xls):
-    # Read the CSV file into a pandas DataFrame
-    df = pd.read_excel('John_Doe_Premium_Payment.xlsx')
-
-    # Select all columns and convert it to a text Series
-    text_series_list = [df[col].astype(str) for col in df.columns]
-
-    # Join the text Series into a single string
-    text_strings = [' '.join(text_series) for text_series in text_series_list]
-    for text_string in text_strings:
-        xls_text=text_string
-    return xls_text
-
 def display_pdf(file_path):
     with open(file_path, "rb") as f:
         base64_pdf = base64.b64encode(f.read()).decode('utf-8')
     pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="700" height="500" type="application/pdf"></iframe>'
     return pdf_display
-
-def extract_text_and_images(pdf_path):
-    elements = []
-
-    with pdfplumber.open(pdf_path) as pdf:
-        for page in pdf.pages:
-            # Extract text and preserve layout
-            text = page.extract_text()
-            if text:
-                elements.append(('text', text))
-
-            # Extract images
-            for image in page.images:
-                # Image metadata
-                x0 = image['x0']
-                top = image['top']
-                x1 = image['x1']
-                bottom = image['bottom']
-                
-                # Extract image as bytes
-                img_data = page.to_image().original
-                img_data = img_data.crop((x0, top, x1, bottom))
-                
-                # Convert cropped image to a PIL image
-                img_bytes = io.BytesIO()
-                img_data.save(img_bytes, format='PNG')
-                img_bytes.seek(0)
-                
-                # Open image with PIL
-                image_pil = Image.open(img_bytes)
-                elements.append(('image', image_pil))
-
-    return elements
 
 if 'pdf1' not in st.session_state:
     st.session_state.pdf1 = None
@@ -125,25 +75,12 @@ if selected_name:
     if selected_name in policyholder_docs:
         policy_document_path = policyholder_docs[selected_name]
         st.markdown(display_pdf(policy_document_path), unsafe_allow_html=True)
-    # if selected_name in policyholder_docs:
-    #     policy_document_path = policyholder_docs[selected_name]
-        policy_terms_text=convert_pdf_to_text(policy_document_path)
-    
-        # with open(policy_document_path, "rb") as policy_file:
-        #     pdf_bytes = policy_file.read()
-        #     st.download_button(
-        #         label=f"Download {selected_name}'s Document",
-        #         data=pdf_bytes,
-        #         file_name=f"{selected_name}_Document.pdf",
-        #         mime="application/pdf",
-        #     )
-        
+        policy_terms_text=convert_pdf_to_text(policy_document_path) 
     else:
         print("No document found for the selected policyholder.")
 
 # Create two file uploaders
 claim_form = st.file_uploader("Upload Claim Form", type="PDF")
-# uploaded_pdf2 = st.file_uploader("Upload Policy holder Document", type="pdf")
 medical_bills=st.file_uploader("Upload Bills in a combined PDF", type="PDF")
 
 
@@ -172,17 +109,12 @@ def gen_res(policy_terms_text, claim_form_text, final, bills):
         )
     return response.text
 
-
 if st.button('Submit'):
-    bills=str(extract_text_and_images(medical_bills))
     if claim_form and medical_bills is not None and policy_terms_text:
+        bills=convert_pdf_to_text(medical_bills)
         claim_form_text = convert_pdf_to_text(claim_form)
         ans=gen_res(policy_terms_text, claim_form_text, final, bills)
+        
         st.write(ans)
-        # bills= convert_pdf_to_text(medical_bills)
-
-        # claim_form_text = convert_pdf_to_text(st.session_state.pdf1)
-        # policy_terms_text = convert_pdf_to_text(st.session_state.pdf2)
-
     else:
         st.write("Please upload all files to proceed.")
