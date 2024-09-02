@@ -22,11 +22,11 @@ llm = genai.GenerativeModel("gemini-1.5-pro")
 
 policyholder_docs = {
     "John Doe": "Policyholder_Document_John.pdf",
-    "Emily Smith": "/Policyholder_Document_Emily.pdf",
-    "Micheal Townley": "/Policyholder_Document_Micheal.pdf",
-    "Franklin Johnson": "/Policyholder_Document_Franklin.pdf",
-    "Francis DeMaria": "/Policyholder_Document_Francis.pdf",
-    "Trevor Andre": "/Policyholder_Document_Trevor.pdf"
+    "Emily Smith": "Policyholder_Document_Emily.pdf",
+    "Micheal Townley": "Policyholder_Document_Micheal.pdf",
+    "Franklin Johnson": "Policyholder_Document_Franklin.pdf",
+    "Francis DeMaria": "Policyholder_Document_Francis.pdf",
+    "Trevor Andre": "Policyholder_Document_Trevor.pdf"
     # Add more mappings as needed
 }
 
