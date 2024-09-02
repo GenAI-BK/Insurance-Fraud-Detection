@@ -58,6 +58,8 @@ if 'pdf2' not in st.session_state:
 cursor.execute("SELECT DISTINCT Name FROM claim_data")
 names = [row[0] for row in cursor.fetchall()]
 
+st.title("Insurance Claim Fraud Detection")
+
 selected_name = st.selectbox("Select Policyholder Name", names)
 
 if selected_name:
