@@ -178,6 +178,7 @@ if st.button('Submit'):
     if claim_form and medical_bills is not None and policy_terms_text:
         claim_form_text = convert_pdf_to_text(claim_form)
         ans=gen_res(policy_terms_text, claim_form_text, final, bills)
+        st.write(ans)
         # bills= convert_pdf_to_text(medical_bills)
 
         # claim_form_text = convert_pdf_to_text(st.session_state.pdf1)
