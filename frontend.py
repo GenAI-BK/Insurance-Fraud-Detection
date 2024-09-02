@@ -21,7 +21,7 @@ genai.configure(api_key=api_key)
 llm = genai.GenerativeModel("gemini-1.5-pro")
 
 policyholder_docs = {
-    "John Doe": "/Policyholder_Document_John.pdf",
+    "John Doe": "Policyholder_Document_John.pdf",
     "Emily Smith": "/Policyholder_Document_Emily.pdf",
     "Micheal Townley": "/Policyholder_Document_Micheal.pdf",
     "Franklin Johnson": "/Policyholder_Document_Franklin.pdf",
