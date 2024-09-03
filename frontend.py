@@ -12,12 +12,12 @@ conn = sqlite3.connect('claim.db')
 cursor = conn.cursor()
 
 policyholder_docs = {
-    "John Doe": "C:/Users/jugal.gurnani/Downloads/insurance_claim/Policyholder_Document_John.pdf",
-    "Emily Smith": "C:/Users/jugal.gurnani/Downloads/insurance_claim/Policyholder_Document_Emily.pdf",
-    "Micheal Townley": "C:/Users/jugal.gurnani/Downloads/insurance_claim/Policyholder_Document_Micheal.pdf",
-    "Franklin Johnson": "C:/Users/jugal.gurnani/Downloads/insurance_claim/Policyholder_Document_Franklin.pdf",
-    "Francis DeMaria": "C:/Users/jugal.gurnani/Downloads/insurance_claim/Policyholder_Document_Francis.pdf",
-    "Trevor Andre": "C:/Users/jugal.gurnani/Downloads/insurance_claim/Policyholder_Document_Trevor.pdf"
+    "John Doe": "Policyholder_Document_John.pdf",
+    "Emily Smith": "Policyholder_Document_Emily.pdf",
+    "Micheal Townley": "Policyholder_Document_Micheal.pdf",
+    "Franklin Johnson": "Policyholder_Document_Franklin.pdf",
+    "Francis DeMaria": "/Policyholder_Document_Francis.pdf",
+    "Trevor Andre": "Policyholder_Document_Trevor.pdf"
     # Add more mappings as needed
 }
 
