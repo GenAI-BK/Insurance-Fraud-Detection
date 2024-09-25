@@ -130,11 +130,11 @@ if 'vehicle_chat_history' not in st.session_state:
 
 # Sample policyholders and their corresponding document paths for vehicle insurance
 policyholder_docs = {
-    "Riya Malhotra": "C:/Users/jugal.gurnani/Downloads/insurance_claim/Vehicle_Policyholder/Riya_Malhotra.pdf",
-    "Aarav Kapoor": "C:/Users/jugal.gurnani/Downloads/insurance_claim/Vehicle_Policyholder/Aarav_Kapoor.pdf",
-    "Kavya Singh": "C:/Users/jugal.gurnani/Downloads/insurance_claim/Vehicle_Policyholder/Kavya_Singh.pdf",
-    "Ishan Deshmukh": "C:/Users/jugal.gurnani/Downloads/insurance_claim/Vehicle_Policyholder/Ishan_Deshmukh.pdf",
-    "Meera Patel": "C:/Users/jugal.gurnani/Downloads/insurance_claim/Vehicle_Policyholder/Meera_Patel.pdf",
+    "Riya Malhotra": "Vehicle_Policyholder/Riya_Malhotra.pdf",
+    "Aarav Kapoor": "Vehicle_Policyholder/Aarav_Kapoor.pdf",
+    "Kavya Singh": "Vehicle_Policyholder/Kavya_Singh.pdf",
+    "Ishan Deshmukh": "Vehicle_Policyholder/Ishan_Deshmukh.pdf",
+    "Meera Patel": "Vehicle_Policyholder/Meera_Patel.pdf",
 }
 
 # Select policyholder
