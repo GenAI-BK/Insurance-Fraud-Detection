@@ -129,12 +129,12 @@ if 'health_chat_history' not in st.session_state:
 
 # Sample policyholders and their corresponding document paths for vehicle insurance
 policyholder_docs = {
-    "John Doe": "C:/Users/jugal.gurnani/Downloads/insurance_claim/Policyholder_Document_John.pdf",
-    "Emily Smith": "C:/Users/jugal.gurnani/Downloads/insurance_claim/Policyholder_Document_Emily.pdf",
-    "Micheal Townley": "C:/Users/jugal.gurnani/Downloads/insurance_claim/Policyholder_Document_Micheal.pdf",
-    "Franklin Johnson": "C:/Users/jugal.gurnani/Downloads/insurance_claim/Policyholder_Document_Franklin.pdf",
-    "Francis DeMaria": "C:/Users/jugal.gurnani/Downloads/insurance_claim/Policyholder_Document_Francis.pdf",
-    "Trevor Andre": "C:/Users/jugal.gurnani/Downloads/insurance_claim/Policyholder_Document_Trevor.pdf",
+    "John Doe": "health_docs/Policyholder_Document_John.pdf",
+    "Emily Smith": "health_docs/Policyholder_Document_Emily.pdf",
+    "Micheal Townley": "health_docs/Policyholder_Document_Micheal.pdf",
+    "Franklin Johnson": "health_docs/Policyholder_Document_Franklin.pdf",
+    "Francis DeMaria": "health_docs/Policyholder_Document_Francis.pdf",
+    "Trevor Andre": "health_docs/Policyholder_Document_Trevor.pdf",
 }
 
 
